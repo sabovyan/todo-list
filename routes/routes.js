@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const controllerWrapper = require('../middleware/controlWrapper.mw');
+const asyncWrapper = require('../middleware/asyncWrapper');
 
 const {
   create,
@@ -10,8 +10,8 @@ const {
 
 const router = Router();
 
-router.route('/').get(read).post(create);
+router.route('/').get(asyncWrapper(read)).post(asyncWrapper(create));
 
-router.route('/:id').put(update).delete(remove);
+router.route('/:id').put(asyncWrapper(update)).delete(asyncWrapper(remove));
 
 module.exports = router;

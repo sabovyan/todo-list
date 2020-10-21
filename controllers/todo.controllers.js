@@ -1,31 +1,22 @@
 const Task = require('../models/todo.models');
+const ErrorWithCode = require('../helpers/ErrorWithResponseCode.helper');
 
 exports.read = async (req, res) => {
-  try {
-    const todos = await Task.find();
+  const todos = await Task.find();
 
-    if (!todos) {
-      throw new Error('Invalid Data');
-    }
-    const response = {
-      success: true,
-      data: todos,
-    };
-    res.status(200).json(response);
-  } catch (err) {
-    const response = {
-      success: false,
-      error: err.message,
-      data: null,
-    };
-    res.status(404).json(response);
+  if (!todos) {
+    throw new ErrorWithCode(404, 'Your tasks are not found');
   }
+  const response = {
+    success: true,
+    data: todos,
+  };
+  res.status(200).json(response);
 };
 
 exports.create = async (req, res) => {
   try {
     const todo = await Task.create(req.body);
-    // console.log(todo);
 
     const response = {
       success: true,
@@ -64,7 +55,7 @@ exports.remove = async (req, res) => {
 
   const response = {
     success: true,
-    data: {},
+    data: null,
   };
   res.status(200).json(response);
 };
