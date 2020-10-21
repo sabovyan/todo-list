@@ -5,8 +5,7 @@
 > - CSS
 > - JS
 > - express
-> - mongo
-> - mongoose
+
 
 ## additional
 
