@@ -6,6 +6,7 @@ import CreateNotificationBar from '../CreateNotificationBar/CreateNotificationBa
 const createForm = (renderList, sendData) => {
   const form = document.createElement('form');
   form.classList.add('form');
+  form.setAttribute('autocomplete', 'off');
 
   const textField = createTextInput();
   const notifyBar = CreateNotificationBar();

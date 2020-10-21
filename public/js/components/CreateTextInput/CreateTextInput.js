@@ -4,6 +4,8 @@ const createTextInput = () => {
   input.setAttribute('type', 'text');
   input.setAttribute('name', 'text');
   input.setAttribute('id', 'text');
+  input.setAttribute('autofocus', true);
+
   return input;
 };
 

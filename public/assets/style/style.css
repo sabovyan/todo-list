@@ -1,0 +1,146 @@
+:root {
+  --main-font: 'Nanum Pen Script', cursive;
+  --fg-color: black;
+  --bg-color: white;
+  --accent-color: red;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--main-font);
+}
+
+body,
+html {
+  height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f1f1f1 60%, rgb(59, 59, 59));
+}
+
+#root {
+  height: 100%;
+  padding: 1rme;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  background-color: rgba(255, 255, 255, 0.877);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.form {
+  margin: 1rem;
+  width: 100%;
+  display: flex;
+}
+
+.form__input,
+.form__button {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--fg-color);
+  background: transparent;
+  font-size: 2rem;
+  padding: 5px;
+}
+.form__input {
+  caret-color: var(--accent-color);
+  background: transparent;
+  flex-grow: 1;
+}
+
+.form__button:hover {
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+.todo__list {
+  width: 100%;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  font-size: 2rem;
+}
+.todo__item {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid transparent;
+}
+.todo__item:hover {
+  border-left: 1px solid var(--accent-color);
+}
+
+.todo__text {
+  flex-grow: 1;
+}
+.todo__button {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  color: grey;
+}
+.todo__button:hover {
+  cursor: pointer;
+  align-items: flex-start;
+  background-color: var(--bg-color);
+  font-weight: 700;
+  color: black;
+}
+.todo__delete {
+  /* color: var(--accent-color); */
+}
+
+.edit__form {
+  width: 100%;
+  display: flex;
+}
+
+.edit__field {
+  caret-color: var(--accent-color);
+  padding: 5px;
+  flex-grow: 1;
+
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+.edit__button {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid;
+}
+.edit__button:hover {
+  cursor: pointer;
+  align-items: flex-start;
+  background-color: #f5f3f3;
+  font-weight: 700;
+}

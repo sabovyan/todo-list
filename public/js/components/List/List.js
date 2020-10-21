@@ -6,6 +6,7 @@ import createForm from '../CreateForm/CreateForm.js';
 class List {
   createTextValue({ value, id }) {
     const span = document.createElement('span');
+    span.classList.add('todo__text');
     span.textContent = value;
     return span;
   }
@@ -21,39 +22,51 @@ class List {
 
   createButtonGroup(id) {
     const fragment = document.createDocumentFragment();
-    const editButton = this.createButton('edit', 'todo__edit', id);
-    const deleteButton = this.createButton('delete', 'todo__delete', id);
+    const editButton = this.createButton('✂', 'todo__button todo__edit', id);
+    const deleteButton = this.createButton(
+      '🗑',
+      'todo__button todo__delete',
+      id
+    );
 
     fragment.append(editButton);
     fragment.append(deleteButton);
     return fragment;
   }
 
+  createEditForm(todo, root) {
+    const form = document.createElement('form');
+    form.classList.add('edit__form');
+    const input = document.createElement('input');
+    input.setAttribute('class', 'edit__field');
+    input.setAttribute('name', 'editField');
+    input.setAttribute('type', 'text');
+    input.setAttribute('autofocus', true);
+    input.value = todo.value;
+    const btn = this.createButton('✉', 'edit__button', todo.id);
+    form.append(input);
+    form.append(btn);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = {
+        value: form.editField.value,
+        isEdit: false,
+      };
+      if (form.editField.value === '') {
+        data.value = todo.value;
+      }
+
+      doPut(`${BASE_URL}/${todo.id}`, data);
+      this.render(root);
+    });
+    return form;
+  }
+
   createIndividualTodo(root) {
     return (todo) => {
       if (todo.isEdit) {
-        const form = document.createElement('form');
-        const input = document.createElement('input');
-        input.setAttribute('class', 'edit__field');
-        input.setAttribute('name', 'editField');
-        input.setAttribute('type', 'text');
-        input.value = todo.value;
-        const btn = this.createButton('submit', 'edit__submit', todo.id);
-        form.append(input);
-        form.append(btn);
-
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (input.value === '') {
-            throw new Error('please fill in the input');
-          }
-          const data = {
-            value: form.editField.value,
-            isEdit: false,
-          };
-          doPut(`${BASE_URL}/${todo.id}`, data);
-          this.render(root);
-        });
+        const form = this.createEditForm(todo, root);
         return form;
       }
       const li = document.createElement('li');
@@ -83,11 +96,11 @@ class List {
     listWithTodos.addEventListener('click', (e) => {
       if (e.target.tagName === 'BUTTON') {
         const id = e.target.getAttribute('data-id');
-        if (e.target.className === 'todo__delete') {
+        if (e.target.classList.contains('todo__delete')) {
           doDelete(`${BASE_URL}/${id}`);
           this.render(root);
         }
-        if (e.target.className === 'todo__edit') {
+        if (e.target.classList.contains('todo__edit')) {
           doPut(`${BASE_URL}/${id}`);
           this.render(root);
         }
