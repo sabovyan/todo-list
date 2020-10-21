@@ -42,7 +42,7 @@ class List {
     input.setAttribute('type', 'text');
     input.setAttribute('autofocus', true);
     input.value = todo.value;
-    const btn = this.createButton('✉', 'edit__button', todo.id);
+    const btn = this.createButton('✉', 'edit__button', todo._id);
     form.append(input);
     form.append(btn);
 
@@ -56,7 +56,7 @@ class List {
         data.value = todo.value;
       }
 
-      doPut(`${BASE_URL}/${todo.id}`, data);
+      doPut(`${BASE_URL}/${todo._id}`, data);
       this.render(root);
     });
     return form;
@@ -71,7 +71,7 @@ class List {
       const li = document.createElement('li');
       li.classList.add('todo__item');
       const textValue = this.createTextValue(todo);
-      const buttonGroup = this.createButtonGroup(todo.id);
+      const buttonGroup = this.createButtonGroup(todo._id);
 
       li.append(textValue);
       li.append(buttonGroup);
@@ -100,7 +100,7 @@ class List {
           this.render(root);
         }
         if (e.target.classList.contains('todo__edit')) {
-          doPut(`${BASE_URL}/${id}`);
+          doPut(`${BASE_URL}/${id}`, { isEdit: true });
           this.render(root);
         }
       }
@@ -109,14 +109,25 @@ class List {
     return listWithTodos;
   }
 
+  createListErrorMessage({ error }) {
+    const p = document.createElement('p');
+    p.classList.add('todo__error');
+    p.innerText = error;
+    return p;
+  }
+
   async render(root) {
-    const todos = await doGet(BASE_URL);
+    const response = await doGet(BASE_URL);
 
-    const listOfTodos = this.createListOfTodos(todos, root);
+    if (!response.success) {
+      const todoError = this.createListErrorMessage(response);
 
-    removeListFromRoot(root);
-
-    root.append(listOfTodos);
+      root.append(todoError);
+    } else {
+      const listOfTodos = this.createListOfTodos(response.data, root);
+      removeListFromRoot(root);
+      root.append(listOfTodos);
+    }
   }
 }
 

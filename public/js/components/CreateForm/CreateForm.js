@@ -2,8 +2,9 @@ import { BASE_URL } from '../../constants/url.constants.js';
 import createTextInput from '../CreateTextInput/CreateTextInput.js';
 import createSubmitButton from '../CreateSubmitButton/CreateSubmitButton.js';
 import CreateNotificationBar from '../CreateNotificationBar/CreateNotificationBar.js';
+import { doPost } from '../../services/todos.services.js';
 
-const createForm = (renderList, sendData) => {
+const createForm = (renderList) => {
   const form = document.createElement('form');
   form.classList.add('form');
   form.setAttribute('autocomplete', 'off');
@@ -28,11 +29,10 @@ const createForm = (renderList, sendData) => {
         throw new Error('The input should not be empty');
       }
       const newTodo = {
-        id: _.uniqueId('todo_'),
         value,
         isEdit: false,
       };
-      sendData(BASE_URL, newTodo);
+      doPost(BASE_URL, newTodo);
       form.text.value = '';
 
       renderList();

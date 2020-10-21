@@ -1,8 +1,8 @@
 import createForm from '../CreateForm/CreateForm.js';
 
 class Form {
-  render(renderList, root, sendData) {
-    const form = createForm(renderList, sendData);
+  render(renderList, root) {
+    const form = createForm(renderList);
     root.append(form);
   }
 }

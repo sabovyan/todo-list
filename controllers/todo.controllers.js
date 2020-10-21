@@ -1,65 +1,69 @@
-const controllerWrapper = require('../middleware/controlWrapper.mw');
+const Task = require('../models/todo.models');
 
-let todos = [
-  {
-    id: 'ttodo_1',
-    value: 'go to school',
-    isEdit: false,
-  },
-  {
-    id: 'ttodo_2',
-    value: 'discover universe',
-    isEdit: false,
-  },
-  {
-    id: 'ttodo_3',
-    value: 'create a new planet',
-    isEdit: false,
-  },
-];
+exports.read = async (req, res) => {
+  try {
+    const todos = await Task.find();
 
-exports.read = (req, res) => {
-  const response = {
-    status: 'success',
-    data: todos,
-  };
-  res.status(200).send(response);
-};
-exports.create = (req, res) => {
-  todos.push(req.body);
-  const response = {
-    status: 'success',
-    data: todos,
-  };
-  res.status(200).send(response);
-};
-
-exports.update = (req, res) => {
-  const { id } = req.params;
-  if (JSON.stringify(req.body) === JSON.stringify({})) {
-    todos = todos.map((todo) =>
-      todo.id === id ? { ...todo, isEdit: true } : todo
-    );
-  } else {
-    const { value } = req.body;
-    const { isEdit } = req.body;
-
-    todos = todos.map((todo) =>
-      todo.id === id ? { ...todo, isEdit, value } : todo
-    );
+    if (!todos) {
+      throw new Error('Invalid Data');
+    }
+    const response = {
+      success: true,
+      data: todos,
+    };
+    res.status(200).json(response);
+  } catch (err) {
+    const response = {
+      success: false,
+      error: err.message,
+      data: null,
+    };
+    res.status(404).json(response);
   }
+};
+
+exports.create = async (req, res) => {
+  try {
+    const todo = await Task.create(req.body);
+    // console.log(todo);
+
+    const response = {
+      success: true,
+      data: todo,
+    };
+    res.status(200).json(response);
+  } catch (err) {
+    const response = {
+      success: false,
+      error: err.message,
+      data: null,
+    };
+    res.status(404).json(response);
+  }
+};
+
+exports.update = async (req, res) => {
+  const { id } = req.params;
+
+  const todo = await Task.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
   const response = {
-    status: 'success',
-    data: todos,
+    success: true,
+    data: todo,
   };
   res.status(200).json(response);
 };
 
-exports.remove = (req, res) => {
+exports.remove = async (req, res) => {
   const { id } = req.params;
-  todos = todos.filter((todo) => todo.id !== id);
+
+  await Task.findByIdAndDelete(id);
+
   const response = {
-    status: 'success',
+    success: true,
     data: {},
   };
   res.status(200).json(response);

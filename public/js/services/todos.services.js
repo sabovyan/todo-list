@@ -12,8 +12,8 @@ const request = async (url, method = 'GET', body = null) => {
 
   const r = await fetch(url, requestConfig);
   const json = await r.json();
-  const { data } = json;
-  return data;
+
+  return json;
 };
 
 export const doGet = (url) => request(url, 'GET');

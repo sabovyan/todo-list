@@ -10,7 +10,7 @@ function Main() {
     const list = new List(root);
 
     const form = new Form();
-    form.render(list.render.bind(list, root), root, doPost);
+    form.render(list.render.bind(list, root), root);
     list.render(root);
   };
   function init() {

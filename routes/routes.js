@@ -1,5 +1,6 @@
-const express = require('express');
+const { Router } = require('express');
 const controllerWrapper = require('../middleware/controlWrapper.mw');
+
 const {
   create,
   read,
@@ -7,13 +8,10 @@ const {
   remove,
 } = require('../controllers/todo.controllers');
 
-const router = express.Router();
+const router = Router();
 
-router.route('/').get(read).post(controllerWrapper(create));
+router.route('/').get(read).post(create);
 
-router
-  .route('/:id')
-  .put(controllerWrapper(update))
-  .delete(controllerWrapper(remove));
+router.route('/:id').put(update).delete(remove);
 
 module.exports = router;
