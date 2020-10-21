@@ -1,3 +1,5 @@
+const controllerWrapper = require('../middleware/controlWrapper.mw');
+
 let todos = [
   {
     id: 'ttodo_1',
