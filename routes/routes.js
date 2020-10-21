@@ -1,4 +1,5 @@
 const express = require('express');
+const controllerWrapper = require('../middleware/controlWrapper.mw');
 const {
   create,
   read,
@@ -8,8 +9,11 @@ const {
 
 const router = express.Router();
 
-router.route('/').get(read).post(create);
+router.route('/').get(read).post(controllerWrapper(create));
 
-router.route('/:id').put(update).delete(remove);
+router
+  .route('/:id')
+  .put(controllerWrapper(update))
+  .delete(controllerWrapper(remove));
 
 module.exports = router;
