@@ -40,8 +40,14 @@ body {
   margin: 1rem;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
-
+.form__notify {
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 5px;
+}
 .form__input,
 .form__button {
   border: none;
@@ -106,9 +112,6 @@ body {
   background-color: var(--bg-color);
   font-weight: 700;
   color: black;
-}
-.todo__delete {
-  /* color: var(--accent-color); */
 }
 
 .edit__form {
