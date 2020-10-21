@@ -1,10 +1,9 @@
 import { doGet, doDelete, doPut } from '../../services/todos.services.js';
 import { BASE_URL } from '../../constants/url.constants.js';
 import { removeListFromRoot } from './List.helper.js';
-import createForm from '../CreateForm/CreateForm.js';
 
 class List {
-  createTextValue({ value, id }) {
+  createTextValue({ value }) {
     const span = document.createElement('span');
     span.classList.add('todo__text');
     span.textContent = value;
