@@ -1,5 +1,3 @@
-import { doPost } from './services/todos.services.js';
-
 import Form from './components/Form/Form.js';
 import List from './components/List/List.js';
 
