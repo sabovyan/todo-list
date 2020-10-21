@@ -1,61 +1,35 @@
-const Task = require('../models/todo.models');
-const ErrorWithCode = require('../helpers/ErrorWithResponseCode.helper');
+const createResponse = require('../helpers/response.helper');
+const {
+  getTasks,
+  addTask,
+  updateTask,
+  deleteTask,
+} = require('../services/todo.service');
 
 exports.read = async (req, res) => {
-  const todos = await Task.find();
+  const todos = await getTasks();
+  const response = createResponse(true, todos);
 
-  if (!todos) {
-    throw new ErrorWithCode(404, 'Your tasks are not found');
-  }
-  const response = {
-    success: true,
-    data: todos,
-  };
   res.status(200).json(response);
 };
 
 exports.create = async (req, res) => {
-  try {
-    const todo = await Task.create(req.body);
+  const todo = await addTask(req.body);
+  const response = createResponse(true, todo);
 
-    const response = {
-      success: true,
-      data: todo,
-    };
-    res.status(200).json(response);
-  } catch (err) {
-    const response = {
-      success: false,
-      error: err.message,
-      data: null,
-    };
-    res.status(404).json(response);
-  }
+  res.status(200).json(response);
 };
 
 exports.update = async (req, res) => {
-  const { id } = req.params;
+  const todo = await updateTask(req.params.id, req.body);
+  const response = createResponse(true, todo);
 
-  const todo = await Task.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  const response = {
-    success: true,
-    data: todo,
-  };
   res.status(200).json(response);
 };
 
 exports.remove = async (req, res) => {
-  const { id } = req.params;
+  await deleteTask(req.params.id);
+  const response = createResponse(true, null);
 
-  await Task.findByIdAndDelete(id);
-
-  const response = {
-    success: true,
-    data: null,
-  };
   res.status(200).json(response);
 };

@@ -1,6 +1,6 @@
 const ErrorWithCode = require('../helpers/ErrorWithResponseCode.helper');
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   let message = 'internal server error';
   let code = '500';
   if (err instanceof ErrorWithCode) {
