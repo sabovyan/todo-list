@@ -11,15 +11,15 @@ const createForm = (renderList, sendData) => {
   const notifyBar = CreateNotificationBar();
   const submitButton = createSubmitButton();
 
-  textField.addEventListener('input', () => {
-    notifyBar.textContent = '';
-  });
-
   form.append(textField);
   form.append(submitButton);
   form.append(notifyBar);
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('input', () => {
+    notifyBar.textContent = '';
+  });
+
+  const handleSubmitForm = (e) => {
     e.preventDefault();
     const { value } = form.text;
     try {
@@ -29,13 +29,19 @@ const createForm = (renderList, sendData) => {
       const newTodo = {
         id: 'aa',
         value,
+        isEdit: false,
       };
       sendData(BASE_URL, newTodo);
       form.text.value = '';
+
       renderList();
     } catch (err) {
       notifyBar.textContent = err.message;
     }
+  };
+
+  form.addEventListener('submit', (e) => {
+    handleSubmitForm(e);
   });
 
   return form;

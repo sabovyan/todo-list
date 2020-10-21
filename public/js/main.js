@@ -1,4 +1,4 @@
-import { doPost } from './services/api.helper.js';
+import { doPost } from './services/todos.services.js';
 
 import Form from './components/Form/Form.js';
 import List from './components/List/List.js';
@@ -8,9 +8,10 @@ const root = document.querySelector('#root');
 function Main() {
   const render = () => {
     const list = new List(root);
-    const form = new Form(list.render, root, doPost);
-    form.render();
-    list.render();
+
+    const form = new Form();
+    form.render(list.render.bind(list, root), root, doPost);
+    list.render(root);
   };
   function init() {
     render();

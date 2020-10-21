@@ -12,7 +12,6 @@ const request = async (url, method = 'GET', body = null) => {
 
   const r = await fetch(url, requestConfig);
   const json = await r.json();
-
   const { data } = json;
   return data;
 };
@@ -23,4 +22,4 @@ export const doPost = (url, body) => request(url, 'POST', body);
 
 export const doPut = (url, body) => request(url, 'PUT', body);
 
-export const doDelete = (url, body) => request(url, 'DELETE', body);
+export const doDelete = (url) => request(url, 'DELETE');
