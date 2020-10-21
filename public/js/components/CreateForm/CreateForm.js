@@ -28,7 +28,7 @@ const createForm = (renderList, sendData) => {
         throw new Error('The input should not be empty');
       }
       const newTodo = {
-        id: 'aa',
+        id: _.uniqueId('todo_'),
         value,
         isEdit: false,
       };
