@@ -1,3 +1,8 @@
+# Dependency directory
 node_modules/
 
+#vs code local settings
 .vscode
+
+#environment variables
+config/config.env
