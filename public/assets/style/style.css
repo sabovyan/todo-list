@@ -1,5 +1,5 @@
 :root {
-  --main-font: 'Nanum Pen Script', cursive;
+  --main-font: 'Kelly Slab', cursive;
   --fg-color: black;
   --bg-color: white;
   --accent-color: red;
@@ -20,21 +20,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f1f1f1 60%, rgb(59, 59, 59));
+  background: linear-gradient(135deg, #d3d3d3, #f1f1f1 60%, #d3d3d3);
 }
 
 #root {
   height: 100%;
+  width: 50%;
+  min-width: 450px;
   padding: 1rme;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
+  background-color: rgba(255, 255, 255, 0.747);
 
-  background-color: rgba(255, 255, 255, 0.877);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  box-shadow: 2px 2px 2px 2px #f0f0f0, -2px -2px 2px 2px #f0f0f0;
 }
 .form {
   margin: 1rem;
@@ -71,12 +72,28 @@ body {
 }
 .todo__list {
   width: 100%;
+  height: 77%;
   margin: 1rem;
   display: flex;
   flex-direction: column;
   list-style: none;
-  font-size: 2rem;
+  font-size: 1.1rem;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
+
+.todo__list::-webkit-scrollbar {
+  width: 2px;
+}
+
+.todo__list::-webkit-scrollbar-track {
+  background: var(--accent-color);
+}
+
+.todo__list::-webkit-scrollbar-thumb {
+  background: rgb(12, 12, 12);
+}
+
 .todo__item {
   width: 100%;
   padding: 5px;
@@ -112,6 +129,11 @@ body {
   background-color: var(--bg-color);
   font-weight: 700;
   color: black;
+}
+
+.todo__error {
+  font-size: 2rem;
+  color: var(--accent-color);
 }
 
 .edit__form {
