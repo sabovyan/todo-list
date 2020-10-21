@@ -14,7 +14,8 @@
   "author": "sabovyan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "eslint": "^7.11.0",
